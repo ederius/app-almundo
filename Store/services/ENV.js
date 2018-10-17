@@ -2,7 +2,7 @@
 //  esta corriendo el backend
 
 const ENV = {
-    development: '<Aqui va tu ip>:<puerto>',
+    development: '192.168.0.46:8000',
     QA: 'qa.almundo.com',
     production: 'almundo.com',
 };

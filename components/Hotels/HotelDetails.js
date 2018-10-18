@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet  } from 'react-native';
 import { connect } from 'react-redux';
-import { actionGetHotelDetails } from "../../Store/services/ACTIONS";
+import { Rating } from 'react-native-ratings';
+import { Entypo } from '@expo/vector-icons';
+import MapView, { Marker } from 'react-native-maps';
 
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { actionGetHotelDetails } from "../../Store/services/ACTIONS";
 
 
 class HotelDetails extends Component {
@@ -29,19 +31,37 @@ class HotelDetails extends Component {
                 </ View>
                 <View style={styles.cardContent}>
                 <Rating
+                  startingValue={Number(this.props.data.hotel.start)}
                   onFinishRating={this.ratingCompleted}
                   style={{ paddingVertical: 10 }}
                   imageSize={20}
                 />
                 </View>
-                <View>
+                <View style={styles.cardContent}>
+                  <Entypo style={styles.location} name='location-pin' size={25} color="black"/>
                   <Text>{this.props.data.hotel.address}</Text>
                 </View>
               </View>
-              <Image
-                style={{width: 450, height: 120}}
-                source={{uri: this.props.data.hotel.images[0] }}
-              />
+              <View style={styles.containerMap}>
+                <MapView
+                  style={styles.map}
+                  region={{
+                    latitude: 37.78400,
+                    longitude: -122.4324,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
+                  }}
+                >
+                  <Marker
+                    coordinate={{
+                      latitude: 37.78999,
+                      longitude: -122.4324,
+                    }}
+                    centerOffset={{ x: 0, y: 0 }}
+                    anchor={{ x: 0, y: 0 }}
+                  />
+                </MapView>
+              </View>
             </View>
             ) 
           : (
@@ -61,7 +81,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   card:{
-    height:190,
+    height:250,
     backgroundColor:'white',
   },
   cardContainer:{
@@ -71,6 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   cardContent:{
+    width:250,
     flexDirection:'row',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -95,9 +116,22 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 2,
   },
+  location:{
+    marginRight: 17,
+    marginLeft: 17,
+  },
   myEmptyStarStyle: {
     color: 'white',
-  }
+  },
+  containerMap:{
+   height: 400,
+   width: 400,
+   justifyContent: 'flex-end',
+   alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
 });
 
 

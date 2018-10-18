@@ -15,7 +15,7 @@ class HotelList extends Component {
   }
 
   ratingCompleted(rating) {
-    console.log("Rating is: " + rating)
+    console.log("Rating is: " + rating);
   }
 
   render() {
@@ -43,6 +43,8 @@ class HotelList extends Component {
                           </ View>
                           <View style={styles.cardContent}>
                           <Rating
+                            startingValue={Number(item.start)}
+                            ratingCount={5}
                             onFinishRating={this.ratingCompleted}
                             style={{ paddingVertical: 10 }}
                             imageSize={20}
@@ -69,17 +71,18 @@ class HotelList extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      margin: 5,
+      marginTop: 5,
     },
     card:{
       height:190,
       backgroundColor:'white',
+      margin: 5,
     },
     cardContainer:{
-      marginTop: 8,
       marginLeft: 10,
       marginRight: 10,
-      marginBottom: 7,
+      marginBottom: 5,
+      marginTop:7,
     },
     cardContent:{
       flexDirection:'row',
